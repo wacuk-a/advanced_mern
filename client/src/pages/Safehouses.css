@@ -1,7 +1,9 @@
+/* Calm Safehouse Interface - Soft Map Styling */
+
 .safehouses-page {
   min-height: 100vh;
-  padding: 2rem;
-  background: #f5f5f5;
+  padding: var(--spacing-xl);
+  background: var(--calm-neutral-50);
 }
 
 .safehouses-loading {
@@ -13,135 +15,190 @@
 }
 
 .safehouses-header {
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-2xl);
+  text-align: center;
 }
 
 .safehouses-header h1 {
   font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: #333;
+  margin-bottom: var(--spacing-sm);
+  color: var(--calm-neutral-900);
+  font-weight: 500;
+}
+
+.safehouses-header p {
+  color: var(--calm-neutral-600);
+  font-size: 1.125rem;
 }
 
 .safehouses-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: var(--spacing-2xl);
 }
 
 .safehouses-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
   max-height: 80vh;
   overflow-y: auto;
+  padding-right: var(--spacing-sm);
+}
+
+/* Custom Scrollbar */
+.safehouses-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.safehouses-list::-webkit-scrollbar-track {
+  background: var(--calm-neutral-100);
+  border-radius: var(--radius-full);
+}
+
+.safehouses-list::-webkit-scrollbar-thumb {
+  background: var(--calm-neutral-300);
+  border-radius: var(--radius-full);
+}
+
+.safehouses-list::-webkit-scrollbar-thumb:hover {
+  background: var(--calm-neutral-400);
 }
 
 .safehouse-card {
   background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-base);
 }
 
 .safehouse-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
 .safehouse-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .safehouse-header h3 {
   margin: 0;
-  color: #333;
+  color: var(--calm-neutral-900);
+  font-weight: 500;
 }
 
 .availability-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .availability-badge.available {
-  background: #4caf50;
-  color: white;
+  background: var(--calm-teal-100);
+  color: var(--calm-teal-700);
 }
 
 .availability-badge.unavailable {
-  background: #f44336;
-  color: white;
+  background: var(--calm-neutral-200);
+  color: var(--calm-neutral-600);
 }
 
 .safehouse-address {
-  margin-bottom: 1rem;
-  color: #666;
+  margin-bottom: var(--spacing-md);
+  color: var(--calm-neutral-600);
+  line-height: var(--line-height-comfortable);
 }
 
 .safehouse-capacity {
-  margin-bottom: 1rem;
-  color: #333;
+  margin-bottom: var(--spacing-md);
+  color: var(--calm-neutral-700);
+  font-weight: 500;
 }
 
 .safehouse-resources {
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .resource-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--spacing-xs);
 }
 
 .resource-tag {
-  padding: 0.25rem 0.75rem;
-  background: #e3f2fd;
-  color: #1976d2;
-  border-radius: 12px;
-  font-size: 0.85rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--calm-purple-100);
+  color: var(--calm-purple-700);
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 500;
 }
 
 .safehouse-security {
-  margin-bottom: 1rem;
-  color: #666;
-  font-size: 0.9rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--calm-neutral-600);
+  font-size: 0.9375rem;
 }
 
 .book-button {
   width: 100%;
-  padding: 0.75rem;
-  background: #667eea;
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, var(--calm-teal-300), var(--calm-teal-400));
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all var(--transition-base);
+  min-height: 44px;
 }
 
 .book-button:hover {
-  background: #5568d3;
+  background: linear-gradient(135deg, var(--calm-teal-400), var(--calm-teal-500));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.book-button:active {
+  transform: translateY(0);
 }
 
 .safehouses-map {
   height: 80vh;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-soft);
+  background: var(--calm-neutral-100);
+}
+
+/* Override Leaflet styles for softer appearance */
+.safehouses-map :global(.leaflet-container) {
+  background: var(--calm-neutral-100);
+  font-family: var(--font-primary);
+}
+
+.safehouses-map :global(.leaflet-popup-content-wrapper) {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.safehouses-map :global(.leaflet-popup-content) {
+  margin: var(--spacing-md);
+  font-size: 0.9375rem;
 }
 
 .no-safehouses {
   text-align: center;
-  padding: 3rem;
+  padding: var(--spacing-3xl);
   background: white;
-  border-radius: 12px;
-  color: #666;
+  border-radius: var(--radius-lg);
+  color: var(--calm-neutral-600);
 }
 
 .booking-modal {
@@ -150,60 +207,67 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  animation: soft-fade-in var(--transition-base);
 }
 
 .booking-modal-content {
   background: white;
-  border-radius: 12px;
-  padding: 2rem;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
   max-width: 500px;
   width: 90%;
+  box-shadow: var(--shadow-lg);
+  animation: gentle-bounce var(--transition-bounce);
 }
 
 .booking-modal-content h2 {
-  margin-bottom: 1rem;
-  color: #333;
+  margin-bottom: var(--spacing-md);
+  color: var(--calm-neutral-900);
+  font-weight: 500;
 }
 
 .booking-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
 }
 
 .btn-confirm,
 .btn-cancel {
   flex: 1;
-  padding: 0.75rem;
+  padding: var(--spacing-md);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
+  min-height: 44px;
 }
 
 .btn-confirm {
-  background: #667eea;
+  background: linear-gradient(135deg, var(--calm-teal-300), var(--calm-teal-400));
   color: white;
 }
 
 .btn-confirm:hover {
-  background: #5568d3;
+  background: linear-gradient(135deg, var(--calm-teal-400), var(--calm-teal-500));
+  transform: translateY(-1px);
 }
 
 .btn-cancel {
-  background: #f5f5f5;
-  color: #333;
+  background: var(--calm-neutral-100);
+  color: var(--calm-neutral-700);
 }
 
 .btn-cancel:hover {
-  background: #e0e0e0;
+  background: var(--calm-neutral-200);
 }
 
 @media (max-width: 968px) {
@@ -215,4 +279,3 @@
     height: 400px;
   }
 }
-

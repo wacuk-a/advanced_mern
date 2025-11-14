@@ -24,9 +24,7 @@
     "react-leaflet": "^4.2.1",
     "workbox-window": "^7.0.0",
     "react-webcam": "^7.1.1",
-    "react-audio-recorder": "^1.0.0",
     "react-shake": "^1.0.0",
-    "react-native-sensors": "^7.0.0",
     "crypto-js": "^4.2.0",
     "date-fns": "^3.0.6",
     "recharts": "^2.10.3"
@@ -43,4 +41,3 @@
     "vitest": "^1.0.4"
   }
 }
-

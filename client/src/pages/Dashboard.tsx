@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { usePanicStore } from '../store/panicStore';
 import { jsonrpc } from '../utils/jsonrpc';
+import BreathingExercise from '../components/BreathingExercise';
 import './Dashboard.css';
 
 interface DashboardStats {
@@ -61,12 +62,16 @@ const Dashboard = () => {
       </div>
 
       {activeEvent && (
-        <div className="dashboard-alert">
-          <h2>🚨 Active Emergency</h2>
-          <p>Panic button is currently active. Your location is being shared.</p>
-          <Link to="/" className="alert-link">View Details</Link>
+        <div className="dashboard-alert calm-card">
+          <div className="alert-content">
+            <h2 className="alert-title">Active Emergency</h2>
+            <p className="alert-message">Your location is being shared with trusted contacts. Help is on the way.</p>
+            <Link to="/" className="calm-button calm-button-primary">View Details</Link>
+          </div>
         </div>
       )}
+
+      <BreathingExercise />
 
       <div className="dashboard-stats">
         <div className="stat-card">

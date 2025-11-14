@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { jsonrpc } from '../utils/jsonrpc';
 import { useAuthStore } from '../store/authStore';
+import BreathingExercise from '../components/BreathingExercise';
 import './Reports.css';
 
 interface ReportForm {
@@ -100,8 +101,10 @@ const Reports = () => {
     <div className="reports-page">
       <div className="reports-header">
         <h1>Report an Incident</h1>
-        <p>Your report is confidential and will be reviewed by trained counselors</p>
+        <p>Your report is confidential and will be reviewed by trained counselors. Take your time - you're safe here.</p>
       </div>
+
+      <BreathingExercise />
 
       <div className="reports-content">
         <form onSubmit={handleSubmit} className="report-form">
