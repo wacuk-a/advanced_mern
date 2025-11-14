@@ -1,0 +1,51 @@
+/* Quick Exit Button - Discreet */
+
+.quick-exit-button {
+  position: fixed;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--calm-neutral-200);
+  border: 1px solid var(--calm-neutral-300);
+  color: var(--calm-neutral-600);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  z-index: 9999;
+  opacity: 0.6;
+}
+
+.quick-exit-button:hover {
+  opacity: 1;
+  background: var(--calm-neutral-300);
+  transform: scale(1.1);
+}
+
+.quick-exit-button:active {
+  transform: scale(0.95);
+}
+
+.exit-icon {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .quick-exit-button {
+    width: 36px;
+    height: 36px;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+  }
+
+  .exit-icon {
+    font-size: 16px;
+  }
+}
+

@@ -1,0 +1,240 @@
+/* Discreet Panic Button - Trauma-Informed Design */
+
+.discreet-panic-container {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 10000;
+}
+
+.discreet-panic-button {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--calm-alert-soft), var(--calm-alert-gentle));
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-soft);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.discreet-panic-button:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, var(--calm-alert-gentle), var(--calm-alert-soft));
+}
+
+.discreet-panic-button:active {
+  transform: scale(0.95);
+}
+
+.discreet-panic-button.activating {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+.discreet-panic-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.discreet-panic-button:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.panic-icon {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Confirmation Dialog */
+.panic-confirm-dialog {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  min-width: 280px;
+  max-width: 320px;
+  animation: soft-fade-in var(--transition-base);
+}
+
+.panic-confirm-dialog h3 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--calm-neutral-900);
+  font-size: 1.25rem;
+}
+
+.confirm-description {
+  margin-bottom: var(--spacing-lg);
+  color: var(--calm-neutral-600);
+  font-size: 0.9375rem;
+  line-height: var(--line-height-comfortable);
+}
+
+.confirm-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* Active Panic Overlay */
+.panic-active-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(253, 164, 175, 0.95), rgba(254, 202, 202, 0.95));
+  backdrop-filter: blur(10px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: soft-fade-in var(--transition-base);
+  padding: var(--spacing-lg);
+}
+
+.panic-active-content {
+  background: white;
+  padding: var(--spacing-3xl);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: gentle-bounce var(--transition-bounce);
+}
+
+.panic-title {
+  color: var(--calm-neutral-900);
+  margin-bottom: var(--spacing-md);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.panic-reassurance {
+  color: var(--calm-neutral-700);
+  margin-bottom: var(--spacing-xl);
+  font-size: 1.125rem;
+  line-height: var(--line-height-relaxed);
+}
+
+.countdown-container {
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg);
+  background: var(--calm-neutral-50);
+  border-radius: var(--radius-lg);
+}
+
+.countdown-number {
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--calm-teal-500);
+  margin-bottom: var(--spacing-sm);
+  animation: gentle-pulse 1s ease-in-out infinite;
+}
+
+.countdown-text {
+  color: var(--calm-neutral-600);
+  font-size: 0.9375rem;
+}
+
+.panic-location {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-md);
+  background: var(--calm-neutral-50);
+  border-radius: var(--radius-md);
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  color: var(--calm-neutral-600);
+}
+
+.panic-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  flex-direction: column;
+}
+
+/* Breathing Exercise */
+.breathing-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(248, 250, 252, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breathing-content {
+  text-align: center;
+}
+
+.breathing-indicator {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--calm-teal-200), var(--calm-teal-300));
+  animation: breathing 4s ease-in-out infinite;
+  margin: 0 auto var(--spacing-lg);
+}
+
+.breathing-text {
+  color: var(--calm-neutral-700);
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .discreet-panic-button {
+    width: 48px;
+    height: 48px;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+  }
+
+  .panic-active-content {
+    padding: var(--spacing-xl);
+    margin: var(--spacing-md);
+  }
+
+  .panic-title {
+    font-size: 1.75rem;
+  }
+
+  .countdown-number {
+    font-size: 3rem;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .discreet-panic-button.activating,
+  .countdown-number,
+  .breathing-indicator {
+    animation: none;
+  }
+}
+

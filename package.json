@@ -1,0 +1,26 @@
+{
+  "name": "silentvoice-plus",
+  "version": "1.0.0",
+  "description": "AI-powered platform for gender-based violence prevention, reporting, and support management",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "test": "cd server && npm test && cd ../client && npm test"
+  },
+  "keywords": [
+    "violence-prevention",
+    "safety",
+    "emergency-response",
+    "counseling"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+
