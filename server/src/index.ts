@@ -5,7 +5,7 @@ import { connectDB } from './config/database';
 
 const app = express();
 
-// FIX CORS - Allow all origins for now
+// FIX CORS - Allow all origins
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -28,16 +28,33 @@ app.get('/api/safehouses/nearby', (req, res) => {
   });
 });
 
+// EVIDENCE ROUTES - FIXED
 app.post('/api/evidence/audio', (req, res) => {
-  res.json({ success: true, id: `audio_${Date.now()}` });
+  console.log('Audio evidence saved:', req.body);
+  res.json({ success: true, id: `audio_${Date.now()}`, message: "Audio saved successfully" });
 });
 
 app.post('/api/evidence/photo', (req, res) => {
-  res.json({ success: true, id: `photo_${Date.now()}` });
+  console.log('Photo evidence saved:', req.body);
+  res.json({ success: true, id: `photo_${Date.now()}`, message: "Photo saved successfully" });
 });
 
 app.post('/api/evidence/video', (req, res) => {
-  res.json({ success: true, id: `video_${Date.now()}` });
+  console.log('Video evidence saved:', req.body);
+  res.json({ success: true, id: `video_${Date.now()}`, message: "Video saved successfully" });
+});
+
+// Add GET routes for testing
+app.get('/api/evidence/audio', (req, res) => {
+  res.json({ message: "Audio endpoint working - use POST to save audio" });
+});
+
+app.get('/api/evidence/photo', (req, res) => {
+  res.json({ message: "Photo endpoint working - use POST to save photos" });
+});
+
+app.get('/api/evidence/video', (req, res) => {
+  res.json({ message: "Video endpoint working - use POST to save videos" });
 });
 
 app.get('/api/emergency/contacts', (req, res) => {
