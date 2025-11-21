@@ -7,12 +7,12 @@ import {
   deleteFile,
   serveFile
 } from '../controllers/fileController';
-import { protect } from '../middleware/auth';
+import { requireAuth } from '../middleware/auth';
 
 const router = express.Router();
 
-// All routes are protected
-router.use(protect);
+// All routes are requireAuthed
+router.use(requireAuth);
 
 // File upload routes
 router.post('/upload', uploadFile);

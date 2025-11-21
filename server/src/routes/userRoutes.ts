@@ -1,9 +1,9 @@
 import express from 'express';
-import { protect } from '../middleware/auth';
+import { requireAuth } from '../middleware/auth';
 
 const router = express.Router();
 
-router.use(protect);
+router.use(requireAuth);
 
 // Basic user routes placeholder
 router.get('/profile', (req, res) => {

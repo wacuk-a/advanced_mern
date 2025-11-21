@@ -6,7 +6,7 @@ import {
   updateDetails,
   updatePassword,
 } from '../controllers/authController';
-import { protect } from '../middleware/auth';
+import { requireAuth } from '../middleware/auth';
 import {
   validateRegister,
   validateLogin,
@@ -18,8 +18,8 @@ const router = express.Router();
 
 router.post('/register', validateRegister, register);
 router.post('/login', validateLogin, login);
-router.get('/me', protect, getMe);
-router.put('/updatedetails', protect, validateUpdateDetails, updateDetails);
-router.put('/updatepassword', protect, validateUpdatePassword, updatePassword);
+router.get('/me', requireAuth, getMe);
+router.put('/updatedetails', requireAuth, validateUpdateDetails, updateDetails);
+router.put('/updatepassword', requireAuth, validateUpdatePassword, updatePassword);
 
 export default router;
