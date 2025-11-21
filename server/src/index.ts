@@ -5,11 +5,16 @@ import { connectDB } from './config/database';
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// FIX CORS - Allow all origins for now
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
-// SIMPLE WORKING ROUTES - NO COMPLEXITY
+// SIMPLE WORKING ROUTES
 app.post('/api/panic/activate', (req, res) => {
   res.json({ success: true, message: "Emergency alert sent!" });
 });
@@ -43,6 +48,20 @@ app.get('/api/emergency/contacts', (req, res) => {
       { name: "Nairobi Women's Hospital", number: "+254703042000" }
     ]
   });
+});
+
+// Safety Plan endpoints
+app.get('/api/safetyplans', (req, res) => {
+  res.json({
+    plans: [
+      { id: 1, name: "Emergency Exit Plan", steps: ["Identify safe exits", "Pack emergency bag", "Memorize safe contacts"] },
+      { id: 2, name: "Digital Safety Plan", steps: ["Clear browser history", "Use incognito mode", "Enable quick exit"] }
+    ]
+  });
+});
+
+app.post('/api/safetyplans', (req, res) => {
+  res.json({ success: true, id: `plan_${Date.now()}` });
 });
 
 // Health check
