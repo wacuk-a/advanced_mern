@@ -1,4 +1,3 @@
-# 📁 Project Structure
 advanced_mern/
 ├── 📂 client/ # React TypeScript Frontend
 │ ├── 📂 src/
@@ -49,6 +48,7 @@ advanced_mern/
 ├── 📄 README.md
 ├── 📄 PROJECT_STRUCTURE.md
 └── 📄 SETUP.md
+
 
 text
 
