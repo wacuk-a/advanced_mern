@@ -27,5 +27,14 @@ export const simpleApi = {
   }).then(r => r.json()),
   
   // Emergency Contacts
-  getEmergencyContacts: () => fetch(`${API_BASE}/emergency/contacts`).then(r => r.json())
+  getEmergencyContacts: () => fetch(`${API_BASE}/emergency/contacts`).then(r => r.json()),
+  
+  // Safety Plans
+  getSafetyPlans: () => fetch(`${API_BASE}/safetyplans`).then(r => r.json()),
+  
+  saveSafetyPlan: (data: any) => fetch(`${API_BASE}/safetyplans`, { 
+    method: 'POST', 
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).then(r => r.json())
 };
