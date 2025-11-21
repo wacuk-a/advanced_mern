@@ -36,6 +36,30 @@ server.addMethod("safehouse.findNearby", (params: any) => {
   };
 });
 
+// Audio evidence methods
+server.addMethod("audio.saveRecording", (params: any) => {
+  logger.info('Audio recording saved', params);
+  return {
+    success: true,
+    message: "Audio recording saved successfully",
+    id: `audio_${Date.now()}`,
+    timestamp: new Date().toISOString()
+  };
+});
+
+server.addMethod("audio.getRecordings", () => {
+  return {
+    recordings: [
+      {
+        id: "audio_1",
+        duration: "30s", 
+        timestamp: new Date().toISOString(),
+        title: "Incident Recording"
+      }
+    ]
+  };
+});
+
 // JSON-RPC request handler
 router.post('/', (req: Request, res: Response) => {
   const request = req.body;
