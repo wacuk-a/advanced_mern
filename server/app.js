@@ -5,12 +5,20 @@ const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
+// Add request logging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  next();
+});
+
 // ALL WORKING ROUTES
 app.post('/api/panic', (req, res) => {
+  console.log('Panic button activated');
   res.json({ success: true, message: "🚨 Emergency alert sent to authorities!" });
 });
 
 app.get('/api/safehouses', (req, res) => {
+  console.log('Safehouses requested');
   res.json({
     safehouses: [
       { id: 1, name: "Nairobi Women's Hospital", phone: "+254703042000", type: "hospital" },
@@ -21,10 +29,12 @@ app.get('/api/safehouses', (req, res) => {
 });
 
 app.post('/api/evidence', (req, res) => {
+  console.log('Evidence saved:', req.body);
   res.json({ success: true, message: "Evidence saved securely!", id: Date.now() });
 });
 
 app.get('/api/contacts', (req, res) => {
+  console.log('Contacts requested');
   res.json({
     contacts: [
       { name: "Police", number: "999" },
