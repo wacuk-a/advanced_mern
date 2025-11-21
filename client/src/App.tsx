@@ -1,75 +1,34 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuthStore } from './store/authStore';
-import { enableQuickExit, enableIncognitoMode } from './utils/safeMode';
-import DiscreetPanicButton from './components/PanicButton/DiscreetPanicButton';
-import QuickExit from './components/SafeMode/QuickExit';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import Safehouses from './pages/Safehouses';
-import Reports from './pages/Reports';
-import CounselorDashboard from './pages/CounselorDashboard';
-import Settings from './pages/Settings';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import QuickExitButton from './components/Safety/QuickExitButton';
+import AppNavigation from './components/Navigation/AppNavigation';
+import HomePage from './pages/HomePage';
+import SafetyPlanPage from './pages/SafetyPlanPage';
+import EmergencyContactsPage from './pages/EmergencyContactsPage';
+import EvidenceRecorderPage from './pages/EvidenceRecorderPage';
+import SafetyAssessmentPage from './pages/SafetyAssessmentPage';
+import ResourcesPage from './pages/ResourcesPage';
+import LocationSharingPage from './pages/LocationSharingPage';
 import './App.css';
-import './styles/calm-ui.css';
 
 function App() {
-  const { loadUser, isAuthenticated, isLoading, user } = useAuthStore();
-
-  useEffect(() => {
-    // Load user on mount
-    loadUser();
-
-    // Enable safe mode features
-    enableQuickExit();
-    enableIncognitoMode();
-  }, [loadUser]);
-
-  if (isLoading) {
-    return (
-      <div className="loading-screen">
-        <div className="spinner"></div>
-        <p>Loading SilentVoice+...</p>
-      </div>
-    );
-  }
-
-  // Create anonymous session if not authenticated
-  useEffect(() => {
-    if (!isAuthenticated && !isLoading) {
-      useAuthStore.getState().createAnonymousSession().catch(console.error);
-    }
-  }, [isAuthenticated, isLoading]);
-
   return (
-    <BrowserRouter>
-      <div className="app">
+    <Router>
+      <div className="App">
+        <QuickExitButton />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/safehouses" element={<Safehouses />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route 
-            path="/counselor" 
-            element={
-              user?.role === 'counselor' || user?.role === 'admin' 
-                ? <CounselorDashboard /> 
-                : <Navigate to="/" replace />
-            } 
-          />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/safety-plan" element={<SafetyPlanPage />} />
+          <Route path="/emergency-contacts" element={<EmergencyContactsPage />} />
+          <Route path="/evidence-recorder" element={<EvidenceRecorderPage />} />
+          <Route path="/safety-assessment" element={<SafetyAssessmentPage />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+<Route path="/location-sharing" element={<LocationSharingPage />} />
         </Routes>
-        
-        {/* Discreet Panic Button - Always visible */}
-        <DiscreetPanicButton />
-        
-        {/* Quick Exit Button */}
-        <QuickExit />
+        <AppNavigation />
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
 export default App;
-

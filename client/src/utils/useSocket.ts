@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react';
-import { Socket } from 'socket.io-client';
-import { initSocket, getSocket, disconnectSocket } from './socket';
+import { useEffect, useRef } from 'react';
+import io from 'socket.io-client';
 
-export function useSocket(): Socket | null {
-  const [socket, setSocket] = useState<Socket | null>(null);
+export const useSocket = () => {
+  const socketRef = useRef<any>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const anonymousSessionId = localStorage.getItem('anonymousSessionId');
+    const serverUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
     
-    const socketInstance = initSocket(token || undefined, anonymousSessionId || undefined);
-    setSocket(socketInstance);
+    socketRef.current = io(serverUrl, {
+      auth: { token }
+    });
 
     return () => {
-      // Don't disconnect on unmount, keep connection alive
-      // disconnectSocket();
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
     };
   }, []);
 
-  return socket;
-}
-
+  return socketRef.current;
+};

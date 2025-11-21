@@ -1,0 +1,88 @@
+.card {
+  background: white;
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-normal);
+}
+
+/* Card Variants */
+.card--default {
+  border: 1px solid var(--neutral-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.card--elevated {
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-lg);
+}
+
+.card--outlined {
+  border: 2px solid var(--neutral-200);
+  box-shadow: none;
+  background: transparent;
+}
+
+.card--filled {
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  box-shadow: none;
+}
+
+/* Card Padding Variants */
+.card--padding-none {
+  padding: 0;
+}
+
+.card--padding-sm {
+  padding: var(--space-4);
+}
+
+.card--padding-md {
+  padding: var(--space-6);
+}
+
+.card--padding-lg {
+  padding: var(--space-8);
+}
+
+/* Card Sections */
+.card-header {
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--neutral-200);
+  margin-bottom: var(--space-4);
+}
+
+.card-content {
+  /* Content styles are handled by padding */
+}
+
+.card-footer {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--neutral-200);
+  margin-top: var(--space-4);
+}
+
+/* Hover Effects */
+.card--default:hover,
+.card--elevated:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card--outlined:hover {
+  border-color: var(--primary-300);
+}
+
+.card--filled:hover {
+  background: var(--neutral-100);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card--padding-md {
+    padding: var(--space-4);
+  }
+  
+  .card--padding-lg {
+    padding: var(--space-6);
+  }
+}

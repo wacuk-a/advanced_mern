@@ -1,0 +1,127 @@
+/* Loading Spinner Styles */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.spinner-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.spinner-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  border-style: solid;
+}
+
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.spinner-medium {
+  width: 40px;
+  height: 40px;
+  border-width: 3px;
+}
+
+.spinner-large {
+  width: 60px;
+  height: 60px;
+  border-width: 4px;
+}
+
+.spinner-primary {
+  border-color: #3b82f6;
+  border-top-color: transparent;
+}
+
+.spinner-secondary {
+  border-color: #6b7280;
+  border-top-color: transparent;
+}
+
+.spinner-white {
+  border-color: #ffffff;
+  border-top-color: transparent;
+}
+
+.spinner-text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.spinner-inline .spinner-text {
+  font-size: 0.875rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse animation for skeleton loading */
+.skeleton-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Skeleton loading components */
+.skeleton {
+  background: #e5e7eb;
+  border-radius: 4px;
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-title {
+  height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.skeleton-button {
+  height: 2.5rem;
+  width: 6rem;
+  border-radius: 6px;
+}

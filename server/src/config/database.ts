@@ -1,30 +1,18 @@
 import mongoose from 'mongoose';
-import { logger } from '../utils/logger';
-
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/silentvoice';
+import logger from '../utils/logger';  // Fixed import
 
 export const connectDB = async (): Promise<void> => {
   try {
-    const conn = await mongoose.connect(MONGODB_URI);
-    logger.info(`MongoDB Connected: ${conn.connection.host}`);
+    const mongoURI = process.env.MONGODB_URI;
+    
+    if (!mongoURI) {
+      throw new Error('MONGODB_URI is not defined in environment variables');
+    }
+
+    await mongoose.connect(mongoURI);
+    logger.info('MongoDB connected successfully');
   } catch (error) {
-    logger.error('Database connection error:', error);
-    throw error;
+    logger.error('MongoDB connection error:', error);
+    process.exit(1);
   }
 };
-
-// Handle connection events
-mongoose.connection.on('disconnected', () => {
-  logger.warn('MongoDB disconnected');
-});
-
-mongoose.connection.on('error', (error) => {
-  logger.error('MongoDB error:', error);
-});
-
-process.on('SIGINT', async () => {
-  await mongoose.connection.close();
-  logger.info('MongoDB connection closed through app termination');
-  process.exit(0);
-});
-

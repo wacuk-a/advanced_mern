@@ -1,0 +1,77 @@
+.quick-exit-button {
+  position: fixed;
+  bottom: var(--space-5);
+  left: var(--space-5);
+  background: var(--soft-gray);
+  color: var(--text-secondary);
+  border: 1px solid var(--pale-blue);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  z-index: var(--z-sos);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  transition: all 0.2s ease;
+  min-height: 44px;
+  backdrop-filter: blur(10px);
+}
+
+.quick-exit-button:hover {
+  background: #e2e8f0;
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+.quick-exit-button:active {
+  transform: scale(0.98);
+}
+
+.quick-exit-button:focus {
+  outline: 2px solid var(--primary-soft);
+  outline-offset: 2px;
+}
+
+.quick-exit-button svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+}
+
+.quick-exit-button:hover svg {
+  transform: translateX(2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quick-exit-button {
+    bottom: var(--space-4);
+    left: var(--space-4);
+    padding: var(--space-2) var(--space-2);
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-exit-button {
+    bottom: var(--space-3);
+    left: var(--space-3);
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.7rem;
+  }
+  
+  .quick-exit-button svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Ensure SOS and Quick Exit don't overlap on very small screens */
+@media (max-width: 360px) {
+  .quick-exit-button {
+    left: var(--space-2);
+    bottom: calc(var(--space-3) + 70px); /* Move above SOS button */
+  }
+}

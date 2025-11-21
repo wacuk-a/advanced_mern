@@ -1,62 +1,89 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-import { User } from '../models/User';
+// server/src/middleware/auth.ts
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import { User } from "../models/User";
+
+// Use the same in-memory session store
+const sessions: Record<string, any> = (global as any).sessions || ((global as any).sessions = {});
 
 export interface AuthRequest extends Request {
   user?: any;
   anonymousSessionId?: string;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+// FIX: Get JWT_SECRET at runtime instead of module load time
+const getJwtSecret = () => {
+  return process.env.JWT_SECRET || "your-secret-key-change-in-production";
+};
 
 export const authenticate = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-    
-    if (!token) {
-      // Allow anonymous access for certain endpoints
-      const anonymousSessionId = req.headers['x-anonymous-session-id'] as string;
-      if (anonymousSessionId) {
-        req.anonymousSessionId = anonymousSessionId;
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.startsWith("Bearer ") ? authHeader.replace("Bearer ", "") : null;
+
+    // ---------------------------------------------------
+    // 1. TRY NORMAL USER TOKEN
+    // ---------------------------------------------------
+    if (token) {
+      try {
+        const jwtSecret = getJwtSecret();
+        console.log("Using JWT secret length:", jwtSecret.length);
+        
+        const decoded = jwt.verify(token, jwtSecret) as any;
+        console.log("Decoded token:", decoded);
+        
+        // FIX: The token contains userId (lowercase d)
+        const userId = decoded.userId;
+
+        if (!userId) {
+          return res.status(401).json({ error: "Invalid token: no user ID" });
+        }
+
+        // For anonymous users, create user object from token
+        if (decoded.anonymous) {
+          req.user = {
+            id: userId,
+            role: "user",
+            isAnonymous: true
+          };
+          return next();
+        }
+
+        // For regular users, find in database
+        const user = await User.findById(userId).select("-password");
+        if (!user) {
+          return res.status(401).json({ error: "User not found" });
+        }
+
+        req.user = user;
         return next();
+      } catch (error) {
+        console.error("JWT verification error:", error);
+        return res.status(401).json({ error: "Invalid token" });
       }
-      
-      res.status(401).json({ error: 'Authentication required' });
-      return;
     }
 
-    const decoded = jwt.verify(token, JWT_SECRET) as any;
-    const user = await User.findById(decoded.userId).select('-password');
-    
-    if (!user) {
-      res.status(401).json({ error: 'User not found' });
-      return;
+    // ---------------------------------------------------
+    // 2. TRY ANONYMOUS SESSION
+    // ---------------------------------------------------
+    const anonymousSessionId = req.headers["x-anonymous-session-id"] as string;
+
+    if (anonymousSessionId && sessions[anonymousSessionId]) {
+      req.anonymousSessionId = anonymousSessionId;
+      req.user = sessions[anonymousSessionId].user;
+      return next();
     }
 
-    req.user = user;
-    next();
-  } catch (error) {
-    res.status(401).json({ error: 'Invalid token' });
+    return res.status(401).json({ error: "Authentication required" });
+  } catch (err) {
+    console.error("Auth middleware error:", err);
+    return res.status(401).json({ error: "Auth error" });
   }
 };
 
-export const requireRole = (...roles: string[]) => {
-  return (req: AuthRequest, res: Response, next: NextFunction): void => {
-    if (!req.user) {
-      res.status(401).json({ error: 'Authentication required' });
-      return;
-    }
-
-    if (!roles.includes(req.user.role)) {
-      res.status(403).json({ error: 'Insufficient permissions' });
-      return;
-    }
-
-    next();
-  };
-};
-
+// Alias for authenticate - some routes expect "protect"
+export const protect = authenticate;

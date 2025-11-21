@@ -1,0 +1,337 @@
+.emergency-panel {
+  padding: var(--space-16) 0;
+  background: linear-gradient(
+    135deg,
+    var(--neutral-50) 0%,
+    var(--primary-50) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.emergency-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+}
+
+.emergency-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  position: relative;
+  z-index: 2;
+}
+
+.emergency-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.emergency-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: var(--space-4);
+  background: linear-gradient(135deg, var(--error-600) 0%, var(--primary-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.emergency-subtitle {
+  font-size: 1.25rem;
+  color: var(--neutral-600);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.emergency-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Main Emergency Card */
+.emergency-main-card {
+  background: linear-gradient(135deg, var(--error-500) 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  grid-row: span 2;
+  position: relative;
+  overflow: hidden;
+}
+
+.emergency-main-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+}
+
+.emergency-status {
+  margin-bottom: var(--space-4);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-ready {
+  background: var(--success-500);
+}
+
+.status-ready::after {
+  background: var(--success-500);
+  opacity: 0.4;
+}
+
+.status-critical {
+  background: white;
+}
+
+.status-critical::after {
+  background: white;
+  opacity: 0.6;
+  animation: criticalPulse 1s infinite;
+}
+
+@keyframes criticalPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+}
+
+.status-text {
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.emergency-content {
+  text-align: center;
+  padding: var(--space-4) 0;
+}
+
+.emergency-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-4);
+  display: block;
+}
+
+.emergency-card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  color: white;
+}
+
+.emergency-description {
+  font-size: 1.125rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+
+.emergency-features {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.feature-tag {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.emergency-button {
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding: var(--space-5) var(--space-8);
+}
+
+/* Support Cards */
+.emergency-support-card {
+  transition: all var(--transition-normal);
+  border: 1px solid var(--neutral-200);
+  height: fit-content;
+}
+
+.emergency-support-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-300);
+}
+
+.support-content {
+  text-align: center;
+  padding: var(--space-2);
+}
+
+.support-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-4);
+  display: block;
+}
+
+.support-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: var(--space-3);
+}
+
+.support-description {
+  color: var(--neutral-600);
+  line-height: 1.5;
+  margin-bottom: var(--space-6);
+  font-size: 0.95rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .emergency-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .emergency-main-card {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .emergency-panel {
+    padding: var(--space-12) 0;
+  }
+  
+  .emergency-title {
+    font-size: 2rem;
+  }
+  
+  .emergency-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .emergency-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  
+  .emergency-content {
+    padding: var(--space-2) 0;
+  }
+  
+  .emergency-icon {
+    font-size: 3rem;
+  }
+  
+  .emergency-card-title {
+    font-size: 1.5rem;
+  }
+  
+  .emergency-description {
+    font-size: 1rem;
+  }
+  
+  .emergency-features {
+    gap: var(--space-2);
+  }
+  
+  .feature-tag {
+    font-size: 0.8rem;
+    padding: var(--space-1) var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .emergency-title {
+    font-size: 1.75rem;
+  }
+  
+  .emergency-icon {
+    font-size: 2.5rem;
+  }
+  
+  .emergency-card-title {
+    font-size: 1.25rem;
+  }
+  
+  .support-icon {
+    font-size: 2rem;
+  }
+  
+  .support-title {
+    font-size: 1.125rem;
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.2;
+  }
+}
+
+.emergency-main-card {
+  animation: slideInUp 0.8s ease-out;
+}
+
+.emergency-support-card:nth-child(2) {
+  animation: slideInUp 0.8s ease-out 0.1s both;
+}
+
+.emergency-support-card:nth-child(3) {
+  animation: slideInUp 0.8s ease-out 0.2s both;
+}

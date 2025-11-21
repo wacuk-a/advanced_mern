@@ -1,26 +1,20 @@
 {
-  "name": "silentvoice-plus",
+  "name": "mern-app",
   "version": "1.0.0",
-  "description": "AI-powered platform for gender-based violence prevention, reporting, and support management",
-  "main": "server/index.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm run dev",
-    "build": "cd client && npm run build",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
-    "test": "cd server && npm test && cd ../client && npm test"
+    "install-all": "cd server && npm install && cd ../client && npm install",
+    "test": "npm run test:client && npm run test:server",
+    "test:client": "cd client && npm test",
+    "test:server": "cd server && npm test",
+    "test:unit": "npm run test:client:unit && npm run test:server:unit",
+    "test:client:unit": "cd client && npm run test:unit",
+    "test:server:unit": "cd server && npm run test:unit",
+    "test:integration": "cd server && npm run test:integration",
+    "test:coverage": "npm run test:client:coverage && npm run test:server:coverage",
+    "test:client:coverage": "cd client && npm run test:coverage",
+    "test:server:coverage": "cd server && npm run test:coverage"
   },
-  "keywords": [
-    "violence-prevention",
-    "safety",
-    "emergency-response",
-    "counseling"
-  ],
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "jest": "^29.7.0"
   }
 }
-
