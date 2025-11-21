@@ -6,6 +6,7 @@ import { User } from "../models/User";
 // Use the same in-memory session store
 const sessions: Record<string, any> = (global as any).sessions || ((global as any).sessions = {});
 
+// Fix: Properly extend Express Request with all its properties
 export interface AuthRequest extends Request {
   user?: any;
   anonymousSessionId?: string;
@@ -30,60 +31,59 @@ export const authenticate = async (
     // ---------------------------------------------------
     if (token) {
       try {
-        const jwtSecret = getJwtSecret();
-        console.log("Using JWT secret length:", jwtSecret.length);
+        const decoded = jwt.verify(token, getJwtSecret()) as any;
+        const user = await User.findById(decoded.userId);
         
-        const decoded = jwt.verify(token, jwtSecret) as any;
-        console.log("Decoded token:", decoded);
-        
-        // FIX: The token contains userId (lowercase d)
-        const userId = decoded.userId;
-
-        if (!userId) {
-          return res.status(401).json({ error: "Invalid token: no user ID" });
-        }
-
-        // For anonymous users, create user object from token
-        if (decoded.anonymous) {
+        if (user) {
           req.user = {
-            id: userId,
-            role: "user",
-            isAnonymous: true
+            id: user._id,
+            email: user.email,
+            role: user.role
           };
           return next();
         }
-
-        // For regular users, find in database
-        const user = await User.findById(userId).select("-password");
-        if (!user) {
-          return res.status(401).json({ error: "User not found" });
-        }
-
-        req.user = user;
-        return next();
       } catch (error) {
-        console.error("JWT verification error:", error);
-        return res.status(401).json({ error: "Invalid token" });
+        // Token is invalid, continue to anonymous session check
       }
     }
 
     // ---------------------------------------------------
     // 2. TRY ANONYMOUS SESSION
     // ---------------------------------------------------
-    const anonymousSessionId = req.headers["x-anonymous-session-id"] as string;
-
+    const anonymousSessionId = req.headers['x-anonymous-session-id'] as string;
     if (anonymousSessionId && sessions[anonymousSessionId]) {
       req.anonymousSessionId = anonymousSessionId;
-      req.user = sessions[anonymousSessionId].user;
       return next();
     }
 
-    return res.status(401).json({ error: "Authentication required" });
-  } catch (err) {
-    console.error("Auth middleware error:", err);
-    return res.status(401).json({ error: "Auth error" });
+    // ---------------------------------------------------
+    // 3. NO AUTH - STILL ALLOW BUT MARK AS UNAUTHENTICATED
+    // ---------------------------------------------------
+    return next();
+  } catch (error) {
+    console.error('Authentication error:', error);
+    return next();
   }
 };
 
-// Alias for authenticate - some routes expect "protect"
-export const protect = authenticate;
+export const optionalAuth = authenticate;
+
+export const requireAuth = (req: AuthRequest, res: Response, next: NextFunction) => {
+  if (!req.user && !req.anonymousSessionId) {
+    return res.status(401).json({ 
+      error: 'Authentication required',
+      code: 'UNAUTHORIZED'
+    });
+  }
+  next();
+};
+
+export const requireUserAuth = (req: AuthRequest, res: Response, next: NextFunction) => {
+  if (!req.user) {
+    return res.status(401).json({ 
+      error: 'User authentication required',
+      code: 'USER_AUTH_REQUIRED'
+    });
+  }
+  next();
+};
